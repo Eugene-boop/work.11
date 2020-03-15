@@ -12,7 +12,7 @@ const openPopup = selector => {
 
   popup.addEventListener('click', e => {
     const target = e.target;
-    if (target.matches('.overlay') || target.matches('.close_icon')) {
+    if (!target.closest('.form-content')) {
       popup.style.display = 'none';
       document.body.style.cssText = 'position:""; width:""';
     }
