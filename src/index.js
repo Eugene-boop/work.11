@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   dropMenu(); 
   openPopup('.open-popup');
   openPopup('.callback-btn');
+  openPopup('.fixed-gift');
   sendForms();
   forbidInput(
     [/[^\d|+]/ig, /[A-Z\d]/ig],
