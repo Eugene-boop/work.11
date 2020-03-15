@@ -7,9 +7,11 @@ const hideGift = btn => {
     btn.remove(); 
     localStorage.giftOpened = true;
   } else {
-    document.body.insertAdjacentHTML('afterbegin', `<div class="fixed-gift" data-popup="#gift">
-    <img src=images/gift.png alt>
-  </div>`);
+    if(location.pathname === '/index.html' || location.pathname === '/') {
+      document.body.insertAdjacentHTML('afterbegin', `<div class="fixed-gift" data-popup="#gift">
+        <img src=images/gift.png alt>
+      </div>`);
+    } 
   }
 
 } 
