@@ -6,6 +6,7 @@ import sendForms from './modules/sendForms';
 import forbidInput from './modules/forbidInput';
 import inputMask from './modules/inputMask';
 import hideGift from './modules/hideGift';
+import mainSlider from './modules/mainSlider';
 hideGift();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,5 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ['input[type="tel"]', 'input[type="text"]']
   );
   inputMask();
+  mainSlider();
   
 });
