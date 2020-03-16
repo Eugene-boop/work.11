@@ -1,6 +1,6 @@
 'use strict';
 
-const sendForms = () => {
+const sendForms = scrollWidth => {
   document.addEventListener('submit', e => e.preventDefault());
 
   const send = (form) => {
@@ -17,6 +17,27 @@ const sendForms = () => {
 
     const statusAlert = document.createElement('div');
     statusAlert.style.cssText = 'font-size:1.5rem; color: white; height: 100%; width: 100%; text-align: center;';
+
+    const showPopup = msg => {
+      const popup = document.getElementById('thanks');
+      if (msg) {
+        popup.querySelector('h4').textContent = 'Ошибка';
+        popup.querySelector('p').innerHTML = `Сообщите оператору или на почту </br> ${msg}`;
+      }
+      popup.style.display = 'block';
+      document.body.style.cssText = `margin-right: ${scrollWidth}px; overflow: hidden; width: 100%`;
+
+      const hide = e => {
+        const target = e.target;
+        if (!target.closest('.form-content') || target.matches('.close-btn')) {
+          popup.style.display = 'none';
+          document.body.style.cssText = ``;
+          popup.removeEventListener('click', hide);
+        }
+      };
+
+      popup.addEventListener('click', hide)
+    };
 
     form.addEventListener('submit', e => {
       statusMessage.style.display = 'block';
@@ -35,17 +56,27 @@ const sendForms = () => {
         .then(response => {
           if (response.status !== 200)  throw new Error(response.statusText);
           statusAlert.textContent = successMessage;
-          form.innerHTML = '';
-          form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
-          if (form.closest('#cards')) statusAlert.style.color = 'black';
-          form.insertAdjacentElement('afterbegin', statusAlert);
           form.querySelectorAll('input').forEach(item => {
             item.classList.remove('success');
             item.value = '';
           });
+          console.log(form.closest('.form-wrapper'));
+          if (form.closest('.form-wrapper')) {
+            showPopup();
+            return;
+          }
+          form.innerHTML = '';
+          form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
+          if (form.closest('#cards')) statusAlert.style.color = 'black';
+          form.insertAdjacentElement('afterbegin', statusAlert);
+          
         })
         .catch(error => {
           statusAlert.textContent = errorMessage;
+          if (form.closest('.form-wrapper')) {
+            showPopup(error);
+            return;
+          }
           form.innerHTML = '';
           form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
           if (form.closest('#cards')) statusAlert.style.color = 'black';

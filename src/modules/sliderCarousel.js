@@ -14,7 +14,6 @@ const sliderCarousel = () => {
 
   let list = carousel.querySelector('.images');
   let listElems = carousel.querySelectorAll('.slide');
-  console.log('listElems: ', listElems);
 
   let position = 0; // положение ленты прокрутки
 
