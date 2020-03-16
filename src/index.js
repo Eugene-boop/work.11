@@ -7,6 +7,7 @@ import forbidInput from './modules/forbidInput';
 import inputMask from './modules/inputMask';
 import hideGift from './modules/hideGift';
 import mainSlider from './modules/mainSlider';
+import sliderCarousel from './modules/sliderCarousel';
 hideGift();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,5 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   inputMask();
   mainSlider();
+  sliderCarousel();
   
 });
