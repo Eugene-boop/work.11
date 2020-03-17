@@ -85,3 +85,6 @@ html,body,body div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,ad
 .gallery-dot-active {background: #fad60b;}
 
 .gallery-bg .slide:first-of-type {display: flex;}
+
+#footer_form .content .choose-club .club {position: relative;}
+#footer_leto_mozaika, #footer_leto_schelkovo {display: block; left: 2%; position: absolute; bottom: 41%; width: 5px; height: 5px;}
