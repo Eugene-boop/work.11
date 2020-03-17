@@ -9,7 +9,7 @@ import hideGift from './modules/hideGift';
 import slider from './modules/slider';
 import sliderCarousel from './modules/sliderCarousel';
 import upArrow from './modules/upArrow';
-
+import fixMenu from './modules/fixMenu';
 hideGift();
 upArrow();
 
@@ -46,5 +46,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
   sliderCarousel();
-  
+  fixMenu();
 });
