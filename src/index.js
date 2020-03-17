@@ -8,7 +8,10 @@ import inputMask from './modules/inputMask';
 import hideGift from './modules/hideGift';
 import slider from './modules/slider';
 import sliderCarousel from './modules/sliderCarousel';
+import upArrow from './modules/upArrow';
+
 hideGift();
+upArrow();
 
 document.addEventListener('DOMContentLoaded', () => {
   const documentWidth = parseInt(document.documentElement.clientWidth),
@@ -43,4 +46,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
   sliderCarousel();
+  
 });
