@@ -10,8 +10,11 @@ import slider from './modules/slider';
 import sliderCarousel from './modules/sliderCarousel';
 import upArrow from './modules/upArrow';
 import fixMenu from './modules/fixMenu';
+import smoothMenu from './modules/smoothMenu';
+
 hideGift();
 upArrow();
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const documentWidth = parseInt(document.documentElement.clientWidth),
@@ -47,4 +50,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   sliderCarousel();
   fixMenu();
+  smoothMenu();
 });
