@@ -6,7 +6,7 @@ import sendForms from './modules/sendForms';
 import forbidInput from './modules/forbidInput';
 import inputMask from './modules/inputMask';
 import hideGift from './modules/hideGift';
-import mainSlider from './modules/mainSlider';
+import slider from './modules/slider';
 import sliderCarousel from './modules/sliderCarousel';
 hideGift();
 
@@ -25,6 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
     ['input[type="tel"]', 'input[type="text"]']
   );
   inputMask();
-  mainSlider();
+  slider({
+    slideName: '.main-slider .slide',
+    sliderName: '.main-slider',
+    slideTime: 4000
+  });
+  slider({
+    slideName: '.gallery-slider .slide',
+    sliderName: '.gallery-slider',
+    slideTime: 2500,
+    dotUlName: 'gallery-slider-dots',
+    dotClass: 'gallery-slider-dot',
+    dotActiveClass: 'gallery-dot-active',
+    arrowName: 'arrow gallery-arrow',
+    arrowNextName: 'next',
+    arrowPrevName: 'prev',
+
+  });
   sliderCarousel();
 });
