@@ -10,7 +10,6 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
     e.preventDefault();
     popup.style.display = 'block';
     document.body.style.cssText = `margin-right: ${scrollWidth}px; overflow: hidden; width: 100%`;
-        
     afterOpen(this);
   });
 
@@ -19,6 +18,19 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
     if (!target.closest('.form-content') || target.matches('.close-btn')) {
       popup.style.display = 'none';
       document.body.style.cssText = ``;
+      
+      const form = popup.querySelector('form');
+
+      if (form.querySelector('.status-alert')) {
+        form.removeChild(popup.querySelector('.status-alert'));
+        form.querySelectorAll('*').forEach(item => {
+          item.style.display = (item.style.display == 'none') ? '' : 'none';
+        });
+      }
+      form.querySelectorAll('input').forEach(item => {
+        item.value = '';
+      });
+      
     }
   })
 };

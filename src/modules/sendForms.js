@@ -5,18 +5,18 @@ const sendForms = scrollWidth => {
 
   const send = (form) => {
     const errorMessage = 'Что-то пошло не так',
-      successMessage = 'Спасибо! Скоро свяжемся',
-      loadMessage = 'Загрузка...';
+      successMessage = 'Спасибо! Скоро свяжемся';
 
     const statusMessage = document.createElement('div');
-    statusMessage.textContent = ``;
+    statusMessage.textContent =  'Загрузка...';;
     statusMessage.style.fontSize = '1.5rem';
     statusMessage.style.color = 'white';
     statusMessage.style.marginTop = '5px';
-    form.appendChild(statusMessage);
+    
 
     const statusAlert = document.createElement('div');
     statusAlert.style.cssText = 'font-size:1.5rem; color: white; height: 100%; width: 100%; text-align: center;';
+    statusAlert.classList.add('status-alert');
 
     const showPopup = msg => {
       const popup = document.getElementById('thanks');
@@ -40,9 +40,8 @@ const sendForms = scrollWidth => {
     };
 
     form.addEventListener('submit', e => {
-      statusMessage.style.display = 'block';
+      form.appendChild(statusMessage);
       if (form.closest('#cards')) statusMessage.style.color = 'black';
-      statusMessage.textContent = loadMessage;
 
       const formData = new FormData(form);
       const body = {};
@@ -56,16 +55,13 @@ const sendForms = scrollWidth => {
         .then(response => {
           if (response.status !== 200)  throw new Error(response.statusText);
           statusAlert.textContent = successMessage;
-          form.querySelectorAll('input').forEach(item => {
-            item.classList.remove('success');
-            item.value = '';
-          });
-          console.log(form.closest('.form-wrapper'));
-          if (form.closest('.form-wrapper')) {
+          if (form.closest('#banner') || form.closest('#footer')) {
             showPopup();
             return;
           }
-          form.innerHTML = '';
+          form.querySelectorAll('*').forEach(item => {
+            item.style.display = 'none';
+          });
           form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
           if (form.closest('#cards')) statusAlert.style.color = 'black';
           form.insertAdjacentElement('afterbegin', statusAlert);
@@ -73,18 +69,23 @@ const sendForms = scrollWidth => {
         })
         .catch(error => {
           statusAlert.textContent = errorMessage;
-          if (form.closest('.form-wrapper')) {
+          if (form.closest('#banner') || form.closest('#footer')) {
             showPopup(error);
             return;
           }
-          form.innerHTML = '';
+          form.querySelectorAll('*').forEach(item => {
+            item.style.display = 'none';
+          });
           form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
           if (form.closest('#cards')) statusAlert.style.color = 'black';
           form.insertAdjacentElement('afterbegin', statusAlert);
           console.log(error);
         })
         .finally( () => {
-          statusMessage.style.display = 'none';
+          form.removeChild(statusMessage);
+          form.querySelectorAll('input').forEach(item => {
+            item.value = '';
+          });
         });
 
 
