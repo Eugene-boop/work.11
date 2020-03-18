@@ -5,7 +5,7 @@ const dropMenu = () => {
   clubsList.addEventListener('click', e => {
     const target = e.target;
     if (target.matches('p')) {
-      clubsList.querySelector('ul').style.display = (clubsList.querySelector('ul').style.display == 'none') ? 'block' : 'none';
+      clubsList.querySelector('ul').style.display = (getComputedStyle(clubsList.querySelector('ul')).display == 'none') ? 'block' : 'none';
     }
   });
 }

@@ -48,6 +48,31 @@ const sendForms = scrollWidth => {
       popup.addEventListener('click', hide)
     };
 
+    const informate = (error = null) => {
+      if (error) {
+        statusAlert.textContent = errorMessage;
+      }else {
+        statusAlert.textContent = successMessage;
+      }
+      if (form.closest('#banner') || form.closest('#footer')) {
+        showPopup(error);
+        return;
+      }
+      if (form.closest('#cards')) {
+        if (error) {
+          statusMessage.textContent =  errorMessage;
+        }else {
+          statusMessage.textContent =  successMessage;
+        }
+        return;
+      };
+      form.querySelectorAll('*').forEach(item => {
+        item.style.display = 'none';
+      });          
+      form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
+      form.insertAdjacentElement('afterbegin', statusAlert);
+    };
+
     form.addEventListener('submit', e => {
       statusMessage.textContent =  'Загрузка...';
       statusMessage.style.display = '';
@@ -62,45 +87,22 @@ const sendForms = scrollWidth => {
       });
 
       form.querySelectorAll('input').forEach(item => {
-        if (item.type !== 'checkbox' && item.type !== 'radio' && item.name !== 'form_name') item.value = '';
+        if (item.type !== 'checkbox' && item.type !== 'radio') {
+          item.value = '';
+        } else if ((form.matches('#card_order') && (item.value === '1' || item.value ===  'mozaika')) ||
+        (form.matches('#footer_form') && item.value ===  'mozaika')) {
+          item.checked = true;
+        } else if (item.name !== 'form_name') item.checked = false;
+
       });
 
       postData(body)
         .then(response => {
           if (response.status !== 200)  throw new Error(response.statusText);
-          statusAlert.textContent = successMessage;
-          if (form.closest('#banner') || form.closest('#footer')) {
-            showPopup();
-            return;
-          }
-          if (form.closest('#cards')) {
-            statusMessage.style.display = '';
-            statusMessage.textContent =  successMessage;
-            return;
-          };
-          form.querySelectorAll('*').forEach(item => {
-            item.style.display = 'none';
-          });          
-          form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
-          form.insertAdjacentElement('afterbegin', statusAlert);
-          
+          informate();
         })
         .catch(error => {
-          statusAlert.textContent = errorMessage;
-          if (form.closest('#banner') || form.closest('#footer')) {
-            showPopup(error);
-            return;
-          }
-          if (form.closest('#cards')) {
-            statusMessage.style.display = '';
-            statusMessage.textContent =  errorMessage;
-            return;
-          };
-          form.querySelectorAll('*').forEach(item => {
-            item.style.display = 'none';
-          });
-          form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
-          form.insertAdjacentElement('afterbegin', statusAlert);
+          informate(error);
           console.log(error);
         })
         .finally( () => {
