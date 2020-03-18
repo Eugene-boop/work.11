@@ -87,12 +87,12 @@ const sendForms = scrollWidth => {
       });
 
       form.querySelectorAll('input').forEach(item => {
-        if (item.type !== 'checkbox' && item.type !== 'radio') {
+        if (item.type !== 'checkbox' && item.type !== 'radio' && item.name !== 'form_name'  ) {
           item.value = '';
         } else if ((form.matches('#card_order') && (item.value === '1' || item.value ===  'mozaika')) ||
-        (form.matches('#footer_form') && item.value ===  'mozaika')) {
+        (form.matches('#footer_form') && item.value ===  'mozaika') || (form.matches('#card_order') && item.value === '1s')) {
           item.checked = true;
-        } else if (item.name !== 'form_name') item.checked = false;
+        } else item.checked = false;
 
       });
 

@@ -10,7 +10,7 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
   openBtn.addEventListener('click', function(e) {
     e.preventDefault();
     popup.style.display = 'block';
-    document.body.style.cssText = `margin-right: ${scrollWidth}px; overflow: hidden; width: 100%`;
+    document.body.style.cssText = ` overflow: hidden; width: 100%`;
     wrapper.forEach(element => {
       element.style.paddingRight = +getComputedStyle(element).paddingRight.slice(0, -2) + scrollWidth + 'px';
     });
@@ -34,7 +34,12 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
             !item.matches('.statusMessage')) ? '' : 'none';
         });
         
-      }
+      } 
+      form.querySelectorAll('input').forEach(item => {
+        if (item.name !== 'form_name') {
+          item.value = '';
+        } 
+      });
       
     }
   })

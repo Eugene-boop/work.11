@@ -17,7 +17,7 @@ import popupMenu from './modules/popupMenu';
 hideGift();
 upArrow();
 
-
+console.log(location);
 document.addEventListener('DOMContentLoaded', () => {
   const documentWidth = parseInt(document.documentElement.clientWidth),
   windowsWidth = parseInt(window.innerWidth),

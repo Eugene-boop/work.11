@@ -1,5 +1,5 @@
 const calc = () => {
-  if (location.pathname === '/index.html' || location.pathname === '/') {
+  if (location.pathname === '/index.html' || location.pathname === '/' || location.pathname === '') {
     const prices = {
       'mozaika': {
         1: 1999,
