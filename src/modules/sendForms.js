@@ -8,7 +8,7 @@ const sendForms = scrollWidth => {
       successMessage = 'Спасибо! Скоро свяжемся';
     
     const statusMessage = document.createElement('div');
-    statusMessage.textContent =  'Загрузка...';;
+    statusMessage.textContent =  'Загрузка...';
     statusMessage.style.fontSize = '1.5rem';
     statusMessage.style.color = 'white';
     statusMessage.style.marginTop = '5px';
@@ -49,6 +49,7 @@ const sendForms = scrollWidth => {
     };
 
     form.addEventListener('submit', e => {
+      statusMessage.textContent =  'Загрузка...';
       statusMessage.style.display = '';
       if (form.closest('#cards')) statusMessage.style.color = 'black';
 
@@ -106,6 +107,7 @@ const sendForms = scrollWidth => {
           if (form.closest('#cards')) {
             setTimeout(() => {
               statusMessage.style.display = 'none';
+              statusMessage.textContent =  'Загрузка...';
             }, 3000);
             return;
           }
