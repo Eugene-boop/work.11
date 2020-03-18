@@ -2,7 +2,8 @@
 
 const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
   const openBtn = document.querySelector(selector),
-    popup = openBtn ? document.querySelector(openBtn.dataset.popup) : null;
+    popup = openBtn ? document.querySelector(openBtn.dataset.popup) : null,
+    wrapper = document.querySelectorAll('.wrapper');
 
   if (!popup) return;
   
@@ -10,6 +11,9 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
     e.preventDefault();
     popup.style.display = 'block';
     document.body.style.cssText = `margin-right: ${scrollWidth}px; overflow: hidden; width: 100%`;
+    wrapper.forEach(element => {
+      element.style.paddingRight = +getComputedStyle(element).paddingRight.slice(0, -2) + scrollWidth + 'px';
+    });
     afterOpen(this);
   });
 
@@ -18,17 +22,21 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
     if (!target.closest('.form-content') || target.matches('.close-btn')) {
       popup.style.display = 'none';
       document.body.style.cssText = ``;
-      
+      wrapper.forEach(element => {
+        element.style.paddingRight = '';
+      });
       const form = popup.querySelector('form');
 
       if (form.querySelector('.status-alert')) {
         form.removeChild(popup.querySelector('.status-alert'));
         form.querySelectorAll('*').forEach(item => {
-          item.style.display = (item.style.display == 'none') ? '' : 'none';
+          item.style.display = (item.style.display == 'none' && 
+            !item.matches('.statusMessage')) ? '' : 'none';
         });
+        
       }
       form.querySelectorAll('input').forEach(item => {
-        item.value = '';
+        if (item.type !== 'checkbox' && item.type !== 'radio') item.value = '';
       });
       
     }

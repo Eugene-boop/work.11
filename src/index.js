@@ -11,6 +11,7 @@ import sliderCarousel from './modules/sliderCarousel';
 import upArrow from './modules/upArrow';
 import fixMenu from './modules/fixMenu';
 import smoothMenu from './modules/smoothMenu';
+import calc from './modules/calc';
 
 hideGift();
 upArrow();
@@ -51,4 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
   sliderCarousel();
   fixMenu();
   smoothMenu();
+  calc();
 });

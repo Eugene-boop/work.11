@@ -2,21 +2,25 @@
 
 const sendForms = scrollWidth => {
   document.addEventListener('submit', e => e.preventDefault());
-
+  
   const send = (form) => {
     const errorMessage = 'Что-то пошло не так',
       successMessage = 'Спасибо! Скоро свяжемся';
-
+    
     const statusMessage = document.createElement('div');
     statusMessage.textContent =  'Загрузка...';;
     statusMessage.style.fontSize = '1.5rem';
     statusMessage.style.color = 'white';
     statusMessage.style.marginTop = '5px';
-    
+    statusMessage.style.display = 'none';
+    statusMessage.classList.add('statusMessage');
+    form.appendChild(statusMessage);
 
     const statusAlert = document.createElement('div');
     statusAlert.style.cssText = 'font-size:1.5rem; color: white; height: 100%; width: 100%; text-align: center;';
     statusAlert.classList.add('status-alert');
+
+    const wrapper = document.querySelectorAll('.wrapper');
 
     const showPopup = msg => {
       const popup = document.getElementById('thanks');
@@ -25,13 +29,18 @@ const sendForms = scrollWidth => {
         popup.querySelector('p').innerHTML = `Сообщите оператору или на почту </br> ${msg}`;
       }
       popup.style.display = 'block';
-      document.body.style.cssText = `margin-right: ${scrollWidth}px; overflow: hidden; width: 100%`;
-
+      document.body.style.cssText = ` overflow: hidden; width: 100%`;
+      wrapper.forEach(element => {
+        element.style.paddingRight = +getComputedStyle(element).paddingRight.slice(0, -2) + scrollWidth + 'px';
+      });
       const hide = e => {
         const target = e.target;
         if (!target.closest('.form-content') || target.matches('.close-btn')) {
           popup.style.display = 'none';
           document.body.style.cssText = ``;
+          wrapper.forEach(element => {
+            element.style.paddingRight = '';
+          });
           popup.removeEventListener('click', hide);
         }
       };
@@ -40,7 +49,7 @@ const sendForms = scrollWidth => {
     };
 
     form.addEventListener('submit', e => {
-      form.appendChild(statusMessage);
+      statusMessage.style.display = '';
       if (form.closest('#cards')) statusMessage.style.color = 'black';
 
       const formData = new FormData(form);
@@ -51,6 +60,10 @@ const sendForms = scrollWidth => {
         }
       });
 
+      form.querySelectorAll('input').forEach(item => {
+        if (item.type !== 'checkbox' && item.type !== 'radio' && item.name !== 'form_name') item.value = '';
+      });
+
       postData(body)
         .then(response => {
           if (response.status !== 200)  throw new Error(response.statusText);
@@ -59,11 +72,15 @@ const sendForms = scrollWidth => {
             showPopup();
             return;
           }
+          if (form.closest('#cards')) {
+            statusMessage.style.display = '';
+            statusMessage.textContent =  successMessage;
+            return;
+          };
           form.querySelectorAll('*').forEach(item => {
             item.style.display = 'none';
-          });
+          });          
           form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
-          if (form.closest('#cards')) statusAlert.style.color = 'black';
           form.insertAdjacentElement('afterbegin', statusAlert);
           
         })
@@ -73,19 +90,26 @@ const sendForms = scrollWidth => {
             showPopup(error);
             return;
           }
+          if (form.closest('#cards')) {
+            statusMessage.style.display = '';
+            statusMessage.textContent =  errorMessage;
+            return;
+          };
           form.querySelectorAll('*').forEach(item => {
             item.style.display = 'none';
           });
           form.parentNode.style.cssText = 'display: flex;  align-items: center;  justify-content: center;';
-          if (form.closest('#cards')) statusAlert.style.color = 'black';
           form.insertAdjacentElement('afterbegin', statusAlert);
           console.log(error);
         })
         .finally( () => {
-          form.removeChild(statusMessage);
-          form.querySelectorAll('input').forEach(item => {
-            item.value = '';
-          });
+          if (form.closest('#cards')) {
+            setTimeout(() => {
+              statusMessage.style.display = 'none';
+            }, 3000);
+            return;
+          }
+          statusMessage.style.display = 'none';
         });
 
 
