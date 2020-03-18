@@ -5,19 +5,18 @@ import openPopup from './modules/openPopup';
 import sendForms from './modules/sendForms';
 import forbidInput from './modules/forbidInput';
 import inputMask from './modules/inputMask';
-import hideGift from './modules/hideGift';
 import slider from './modules/slider';
 import sliderCarousel from './modules/sliderCarousel';
 import upArrow from './modules/upArrow';
 import fixMenu from './modules/fixMenu';
 import smoothMenu from './modules/smoothMenu';
-import calc from './modules/calc';
 import popupMenu from './modules/popupMenu';
+import hideGift from './modules/hideGift';
+import calc from './modules/calc';
 
 hideGift();
 upArrow();
 
-console.log(location);
 document.addEventListener('DOMContentLoaded', () => {
   const documentWidth = parseInt(document.documentElement.clientWidth),
   windowsWidth = parseInt(window.innerWidth),

@@ -25,6 +25,8 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
       wrapper.forEach(element => {
         element.style.paddingRight = '';
       });
+      if (popup.matches('#gift')) return;
+      
       const form = popup.querySelector('form');
 
       if (form.querySelector('.status-alert')) {
