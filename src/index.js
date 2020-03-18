@@ -12,6 +12,7 @@ import upArrow from './modules/upArrow';
 import fixMenu from './modules/fixMenu';
 import smoothMenu from './modules/smoothMenu';
 import calc from './modules/calc';
+import popupMenu from './modules/popupMenu';
 
 hideGift();
 upArrow();
@@ -53,4 +54,5 @@ document.addEventListener('DOMContentLoaded', () => {
   fixMenu();
   smoothMenu();
   calc();
+  popupMenu();
 });
