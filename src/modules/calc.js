@@ -19,7 +19,7 @@ const calc = () => {
     ]
     document.querySelector('#card_order').addEventListener('input', e => {
       const target = e.target,
-        promocode = document.querySelector('#card_order input[name="name"]').value,
+        promocode = document.querySelector('#card_order input[name="promocode"]').value,
         clubName = document.querySelector('input[name="club-name"]:checked').value,
         clubMonth =  document.querySelector('input[name="card-type"]:checked').value;
 
@@ -29,6 +29,7 @@ const calc = () => {
       discount.forEach(promo => {
         if ((new RegExp(promo[0], 'i')).test(promocode)) discountedPrice = Math.ceil((discountedPrice * (100 - promo[1])/100) / 10) * 10;
       })
+      document.querySelector('#card_order input[name="price"]').value = discountedPrice;
       document.querySelector('#price-total').textContent = discountedPrice;
     });
   }
