@@ -38,9 +38,9 @@ const openPopup = (scrollWidth, selector, afterOpen = () => {}) => {
         
       } 
       form.querySelectorAll('input').forEach(item => {
-        if (item.name !== 'form_name') {
+        if (item.type !== 'checkbox' && item.type !== 'radio' && item.name !== 'form_name') {
           item.value = '';
-        } 
+        } else item.checked = false;
       });
       
     }

@@ -92,6 +92,8 @@ const sendForms = scrollWidth => {
         } else if ((form.matches('#card_order') && (item.value === '1' || item.value ===  'mozaika')) ||
         (form.matches('#footer_form') && item.value ===  'mozaika') || (form.matches('#card_order') && item.value === '1s')) {
           item.checked = true;
+        } else if (form.matches('#card_order') && item.value === '12') {
+          document.querySelector('#price-total').textContent = '1999';
         } else item.checked = false;
 
       });
