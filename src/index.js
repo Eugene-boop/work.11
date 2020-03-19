@@ -14,7 +14,6 @@ import popupMenu from './modules/popupMenu';
 import hideGift from './modules/hideGift';
 import calc from './modules/calc';
 
-hideGift();
 upArrow();
 
 document.addEventListener('DOMContentLoaded', () => {
