@@ -1,5 +1,5 @@
 const calc = () => {
-  if (location.pathname === '/index.html' || location.pathname === '/' || location.pathname === '') {
+
     const prices = {
       'mozaika': {
         1: 1999,
@@ -32,7 +32,6 @@ const calc = () => {
       document.querySelector('#card_order input[name="price"]').value = discountedPrice;
       document.querySelector('#price-total').textContent = discountedPrice;
     });
-  }
 };
 
 export default calc;
